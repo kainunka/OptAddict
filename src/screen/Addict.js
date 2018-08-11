@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native'
+import { Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { actionHeaderTitle } from '../actions/optAddict'
-
 
 class Addict extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -14,18 +13,20 @@ class Addict extends Component {
   }
 
   componentDidMount() {
-    const { headerTitle } = this.props
-    this.props.navigation.setParams({ 
-        title: headerTitle
+    const { headerTitle, navigation } = this.props
+    navigation.setParams({ 
+        title: headerTitle.addict
     });
   }
 
   render() {
-    const { headerTitle } = this.props
+    const { headerTitle, navigation } = this.props
 
     return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>{ headerTitle }</Text>
+            <TouchableOpacity onPress={ () => navigation.navigate('Manga') }>
+                <Text style={styles.welcome}>{ headerTitle.addict }</Text>
+            </TouchableOpacity>
         </View>
     );
   }

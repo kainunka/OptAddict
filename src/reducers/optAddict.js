@@ -2,7 +2,11 @@ import { HEADER_TITLE } from '../actions/type'
 import { applyMiddleware } from '../../node_modules/redux';
 
 const INITIAL_STATE = {
-    headerTitle: 'OPT ADDICT'
+    headerTitle: {
+        addict: 'OPT ADDICT',
+        manga: 'MANGA',
+        anime: 'ANIME'
+    }
 }
 
 export const applyHeaderTitle = (state, action) => ({

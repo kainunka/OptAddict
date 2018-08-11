@@ -3,17 +3,28 @@ import {Platform, StyleSheet, Text, View} from 'react-native'
 import { connect } from 'react-redux'
 import { actionHeaderTitle } from '../actions/optAddict'
 
-
 class Anime extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: navigation.getParam('title'),
+  });
+
   constructor(props) {
     super(props)
   }
+
+  componentDidMount() {
+    const { headerTitle, navigation } = this.props
+    navigation.setParams({ 
+        title: headerTitle.anime
+    });
+  }
+
   render() {
     const { headerTitle } = this.props
 
     return (
         <View style={styles.container}>
-          <Text style={styles.welcome}>{ headerTitle }</Text>
+          <Text style={styles.welcome}>{ headerTitle.anime }</Text>
         </View>
     );
   }
