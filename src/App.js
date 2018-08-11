@@ -1,7 +1,22 @@
 import React, {Component} from 'react';
 import { Provider } from 'react-redux'
 import configStore from './config/configStore'
-import OptAddict from './index'
+import { createStackNavigator } from 'react-navigation'
+import Addict from './screen/Addict'
+import Manga from './screen/Manga'
+import Anime from './screen/Anime'
+
+const RootStack = createStackNavigator({
+  Addict: {
+    screen: Addict
+  },
+  Manga: {
+    screen: Manga
+  },
+  Anime: {
+    screen: Anime
+  }
+});
 
 class App extends Component {
   store = configStore()
@@ -9,11 +24,9 @@ class App extends Component {
     super(props)
   }
   render() {
-    const { headerTitle } = this.props
-
     return (
       <Provider store={ this.store }>
-        <OptAddict />
+        <RootStack />
       </Provider>
     );
   }
