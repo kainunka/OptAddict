@@ -5,7 +5,8 @@ const INITIAL_STATE = {
     headerTitle: {
         addict: 'OPT ADDICT',
         manga: 'MANGA',
-        anime: 'ANIME'
+        anime: 'ANIME',
+        setting: 'SETTING'
     }
 }
 

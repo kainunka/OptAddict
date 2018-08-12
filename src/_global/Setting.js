@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { actionHeaderTitle } from '../actions/optAddict'
 
-class Addict extends Component {
+class Setting extends Component {
   constructor(props) {
     super(props)
   }
@@ -11,18 +11,14 @@ class Addict extends Component {
   componentDidMount() {
     const { headerTitle, navigation } = this.props
     navigation.setParams({ 
-        title: headerTitle.addict
+        title: headerTitle.setting
     });
   }
 
   render() {
-    const { headerTitle, navigation } = this.props
-
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={ () => navigation.navigate('Manga') }>
-                <Text style={styles.welcome}>{ headerTitle.addict }</Text>
-            </TouchableOpacity>
+                <Text style={styles.welcome}>SETTING</Text>
         </View>
     );
   }
@@ -58,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Addict)
+export default connect(mapStateToProps, mapDispatchToProps)(Setting)
