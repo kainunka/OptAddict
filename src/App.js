@@ -60,14 +60,14 @@ const SettingStack = createStackNavigator({
 
 
 const RootStack = createBottomTabNavigator({
-  ADDICT: {
-    screen: AddictStack
+  ANIME: {
+    screen: AnimeStack
   },
   MANGA: {
     screen: MangaStack
   },
-  ANIME: {
-    screen: AnimeStack
+  ADDICT: {
+    screen: AddictStack
   }
 },{
   tabBarOptions: {
