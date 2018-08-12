@@ -20,7 +20,7 @@ class Drawer extends Component {
 
   render() {
     return (
-        <LinearGradient colors={['rgba(0, 0, 0, 0.7)', 'rgba(0,0,0, 0.9)', 'rgba(0,0,0, 1)']} style={styles.linearGradient}>
+        <LinearGradient colors={['rgba(0, 0, 0, 0.3)', 'rgba(0,0,0, 0.5)', 'rgba(0,0,0, 0.7)']} style={styles.linearGradient}>
             <View style={styles.container}>
                 <ScrollView>
                     <View style={styles.drawerList}>
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	linearGradient: {
-		flex: 1
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.2)'
 	},
 	imageUrl: {
 		width: 50,

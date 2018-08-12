@@ -96,10 +96,8 @@ const Apps = createDrawerNavigator({
 },
 {
   initialRouteName: 'Index',
-  drawerWidth: 220,
-  contentOptions: {
-    activeTintColor: '#ff6f00',
-  },
+  drawerWidth: 250,
+  drawerBackgroundColor: 'transparent',
   contentComponent: Drawer
 }
 );
