@@ -12,7 +12,7 @@ import Anime from './screen/Anime'
 
 const IconMenu = (navigation) => ( 
   <TouchableOpacity onPress={ () => navigation.toggleDrawer() }>  
-    <Icon name="bars" size={30} color="#000" style={{ marginLeft: 10 }} />
+    <Icon name="bars" size={30} color="#424242" style={{ marginLeft: 10 }} />
   </TouchableOpacity> 
 )
 
