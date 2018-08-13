@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground } from 'react-native'
 import { connect } from 'react-redux'
 import { actionHeaderTitle } from '../actions/optAddict'
 import { DATA_MANGA_LIST, SETTING_MANGA } from '../actions/type'

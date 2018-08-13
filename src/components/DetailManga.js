@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { actionHeaderTitle, _doCallDetailMangta } from '../actions/optAddict'
 import GridView from 'react-native-super-grid';
 import { DATA_MANGA_DETAIL, SETTING_MANGA } from '../actions/type'
+import _ from 'lodash'
 
 class DetailManga extends Component {
   static navigationOptions = ({ navigation }) => ({
