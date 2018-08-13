@@ -1,4 +1,5 @@
 import { HEADER_TITLE } from './type'
+import firebase from 'react-native-firebase'
 
 const actionHeaderTitleSuccess = (headerTitle) => {
     return {
@@ -12,3 +13,6 @@ export const actionHeaderTitle = (headerTitle) => {
         dispatch(actionHeaderTitleSuccess(headerTitle))
     }
 }
+
+export const _doCallListMangta = () => 
+firebase.database().ref('simulate/manga/onepiece').once('value')

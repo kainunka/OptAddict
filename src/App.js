@@ -9,6 +9,7 @@ import Drawer from './_global/Drawer'
 import Addict from './screen/Addict'
 import Manga from './screen/Manga'
 import Anime from './screen/Anime'
+import ViewManga from './components/ViewManga'
 
 const IconMenu = (navigation) => ( 
   <TouchableOpacity onPress={ () => navigation.toggleDrawer() }>  
@@ -58,13 +59,22 @@ const SettingStack = createStackNavigator({
   }
 })
 
+const ViewMangaStack = createStackNavigator({
+  ViewManga: {
+    screen: ViewManga,
+    navigationOptions: {
+      header: null
+    }
+  }
+})
+
 
 const RootStack = createBottomTabNavigator({
-  ANIME: {
-    screen: AnimeStack
-  },
   MANGA: {
     screen: MangaStack
+  },
+  ANIME: {
+    screen: AnimeStack
   },
   ADDICT: {
     screen: AddictStack
@@ -92,6 +102,9 @@ const Apps = createDrawerNavigator({
   },
   Setting: {
     screen: SettingStack,
+  },
+  ViewManga: {
+    screen: ViewMangaStack
   }
 },
 {

@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { actionHeaderTitle } from '../actions/optAddict'
-import firebase from 'react-native-firebase'
-
 
 class Anime extends Component {
   static navigationOptions = ({ navigation }) => ({
