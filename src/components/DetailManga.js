@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, TouchableOpacity, View, Text } from 'react-native'
 import { connect } from 'react-redux'
-import { actionHeaderTitle } from '../actions/optAddict'
-import { DATA_MANGA_LIST, SETTING_MANGA } from '../actions/type'
-import { _doCallListMangta } from '../actions/optAddict'
+import { actionHeaderTitle, _doCallDetailMangta } from '../actions/optAddict'
 import GridView from 'react-native-super-grid';
+import { DATA_MANGA_DETAIL, SETTING_MANGA } from '../actions/type'
 
-class Manga extends Component {
+class DetailManga extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.getParam('title'),
   });
@@ -16,59 +15,62 @@ class Manga extends Component {
   }
 
   componentDidMount() {
-    const { headerTitle, navigation, _actionListManga } = this.props
-    navigation.setParams({ 
-        title: headerTitle.manga
-    });
+    const { _actionDetailManga, settingManga, dataListManga, navigation } = this.props
+    _doCallDetailMangta(settingManga.keyDetail).then((dataSnapShot) => {
+        let dataDetail = dataSnapShot.toJSON()
+        _actionDetailManga(dataDetail)
 
-    _doCallListMangta().then((dataSnapShot) => {
-      let dataManga = dataSnapShot.toJSON()
-      _actionListManga(dataManga)
+        navigation.setParams({ 
+            title: `${dataListManga[settingManga.keyDetail].name} Manga`
+        });
     })
+
   }
 
-  viewDetail = (keyID) => {
+  viewManga = (keyID) => {
     const { navigation, _actionSettingManga, settingManga } = this.props
-    settingManga.keyDetail = keyID
+    settingManga.keyFeed = keyID
     _actionSettingManga(settingManga)
-    navigation.navigate('DetailManga')
+    navigation.navigate('ViewManga')
   }
 
   render() {
-    const { dataListManga } = this.props
+    const { dataDetailManga } = this.props
     return (
+        Object.keys(dataDetailManga).length ?
         <ScrollView style={styles.container}>
           <GridView
             itemDimension={ 105 }
-            items={ dataListManga }
+            items={ dataDetailManga.chapter }
             style={styles.gridView}
             renderItem={(item, index) => (
-              <TouchableOpacity key={ index } onPress={ () => this.viewDetail(index) } >
+              <TouchableOpacity key={ index } onPress={ () => this.viewManga(index) } >
                 <View style={[styles.itemContainer, { backgroundColor: '#fffde7' }]}>
-                  <Text style={styles.itemCode}>{item.name}</Text>
+                  <Text style={styles.itemCode}>ตอนที่ {item.chapter}</Text>
                 </View>
               </TouchableOpacity>
             )}
           />
         </ScrollView>
+        : null
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { headerTitle, dataListManga, settingManga } = state.optState
+  const { settingManga, dataDetailManga, dataListManga } = state.optState
   return {
-    headerTitle,
-    dataListManga,
-    settingManga
+    settingManga,
+    dataDetailManga,
+    dataListManga
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   actionHeaderTitle,
-  _actionListManga: (dataListManga) => dispatch({
-    type: DATA_MANGA_LIST,
-    dataListManga
+  _actionDetailManga: (dataDetailManga) => dispatch({
+    type: DATA_MANGA_DETAIL,
+    dataDetailManga
   }),
   _actionSettingManga: (settingManga) => dispatch({
     type: SETTING_MANGA,
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     color: '#494949',
-  },
+  }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Manga)
+export default connect(mapStateToProps, mapDispatchToProps)(DetailManga)

@@ -10,6 +10,7 @@ import Addict from './screen/Addict'
 import Manga from './screen/Manga'
 import Anime from './screen/Anime'
 import ViewManga from './components/ViewManga'
+import DetailManga from './components/DetailManga'
 
 const IconMenu = (navigation) => ( 
   <TouchableOpacity onPress={ () => navigation.toggleDrawer() }>  
@@ -17,9 +18,29 @@ const IconMenu = (navigation) => (
   </TouchableOpacity> 
 )
 
+const IconBack = (navigation) => ( 
+  <TouchableOpacity onPress={ () => navigation.goBack(null) }>  
+    <Icon name="chevron-left" size={30} color="#424242" style={{ marginLeft: 10 }} />
+  </TouchableOpacity> 
+)
+
 const navigationOptions = ({ navigation }) => ({
   headerTitle: navigation.getParam('title'),
   headerLeft: IconMenu(navigation),
+  headerStyle: {
+    backgroundColor: '#fbc02d'
+  },
+  headerTitleStyle: {
+    flex: 1, 
+    fontWeight: 'bold', 
+    textAlign: 'center', 
+    marginLeft: Platform.OS == "ios" ? 0 : -40
+  }
+})
+
+const navigationOptionsBack = ({ navigation }) => ({
+  headerTitle: navigation.getParam('title'),
+  headerLeft: IconBack(navigation),
   headerStyle: {
     backgroundColor: '#fbc02d'
   },
@@ -56,6 +77,13 @@ const SettingStack = createStackNavigator({
   Setting: {
     screen: Setting,
     navigationOptions
+  }
+})
+
+const DetailMangaStack = createStackNavigator({
+  DetailManga: {
+    screen: DetailManga,
+    navigationOptions: navigationOptionsBack
   }
 })
 
@@ -98,10 +126,13 @@ const RootStack = createBottomTabNavigator({
 
 const Apps = createDrawerNavigator({
   Index: {
-    screen: RootStack,
+    screen: RootStack
   },
   Setting: {
-    screen: SettingStack,
+    screen: SettingStack
+  },
+  DetailManga: {
+    screen: DetailMangaStack
   },
   ViewManga: {
     screen: ViewMangaStack

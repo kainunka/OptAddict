@@ -1,27 +1,31 @@
 import React, {Component} from 'react';
 import { StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import { actionHeaderTitle } from '../actions/optAddict'
+import { actionHeaderTitle, _doCallFeedMangta } from '../actions/optAddict'
 import Gallery from 'react-native-image-gallery';
+import { DATA_MANGA_FEED } from '../actions/type'
 
 class ViewManga extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: navigation.getParam('title'),
-  });
+  _didFocusSubscription;
+  _willBlurSubscription;
 
   constructor(props) {
     super(props)
   }
 
   componentDidMount() {
-
+    const { _actionFeedManga, settingManga } = this.props
+    _doCallFeedMangta(settingManga.keyDetail, settingManga.keyFeed).then((dataSnapShot) => {
+        let dataFeed = dataSnapShot.toJSON()
+        _actionFeedManga(dataFeed)
+    })
   }
 
   render() {
-    const { feedImage } = this.props
+    const { dataFeedManga } = this.props
     let dataUrl = []
-    Object.keys(feedImage).length ? 
-        feedImage.map((value, index) => {
+    Object.keys(dataFeedManga).length ? 
+        dataFeedManga.gallery.map((value, index) => {
             dataUrl.push({
                 source: {
                     uri: value.url
@@ -43,15 +47,20 @@ class ViewManga extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { feedImage } = state.optState
+  const { settingManga, dataFeedManga } = state.optState
   return {
-    feedImage
+    settingManga,
+    dataFeedManga
   }
 }
 
-const mapDispatchToProps = {
-  actionHeaderTitle
-}
+const mapDispatchToProps = (dispatch) => ({
+    actionHeaderTitle,
+    _actionFeedManga: (dataFeedManga) => dispatch({
+      type: DATA_MANGA_FEED,
+      dataFeedManga
+    })
+  })
 
 const styles = StyleSheet.create({
 

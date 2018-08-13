@@ -15,4 +15,11 @@ export const actionHeaderTitle = (headerTitle) => {
 }
 
 export const _doCallListMangta = () => 
-firebase.database().ref('simulate/manga/onepiece').once('value')
+firebase.database().ref(`manga/cartoon`).once('value')
+
+export const _doCallDetailMangta = (key) => 
+firebase.database().ref(`manga/detail/${key}`).once('value')
+
+export const _doCallFeedMangta = (keyDetail, keyFeed) => 
+firebase.database().ref(`manga/feed/${keyDetail}/${keyFeed}`).once('value')
+

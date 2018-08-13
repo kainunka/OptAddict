@@ -1,4 +1,4 @@
-import { HEADER_TITLE, DATA_MANGA_LIST, SETTING_MANGA, FEED_MANGA } from '../actions/type'
+import { HEADER_TITLE, DATA_MANGA_LIST, DATA_MANGA_DETAIL, DATA_MANGA_FEED, SETTING_MANGA } from '../actions/type'
 
 const INITIAL_STATE = {
     headerTitle: {
@@ -8,10 +8,12 @@ const INITIAL_STATE = {
         setting: 'SETTING'
     },
     dataListManga: [],
+    dataDetailManga: {},
+    dataFeedManga: {},
     settingManga: {
-        keyID: 0
-    },
-    feedImage: []
+        keyDetail: 0,
+        keyFeed: 0
+    }
 }
 
 const applyHeaderTitle = (state, action) => ({
@@ -24,14 +26,19 @@ const applyDataListManga = (state, action) => ({
     dataListManga: action.dataListManga
 }) 
 
+const applyDetailManga = (state, action) => ({
+    ...state,
+    dataDetailManga: action.dataDetailManga
+})
+
+const applyFeedManga = (state, action) => ({
+    ...state,
+    dataFeedManga: action.dataFeedManga
+})
+
 const applySettingManga = (state, action) => ({
     ...state,
     settingManga: action.settingManga
-}) 
-
-const applyFeedImage = (state, action) => ({
-    ...state,
-    feedImage: action.feedImage
 }) 
 
 optAddictReducer = (state = INITIAL_STATE, action) => {
@@ -42,11 +49,14 @@ optAddictReducer = (state = INITIAL_STATE, action) => {
         case DATA_MANGA_LIST: {
             return applyDataListManga(state, action)
         }
+        case DATA_MANGA_DETAIL: {
+            return applyDetailManga(state, action)
+        }
+        case DATA_MANGA_FEED: {
+            return applyFeedManga(state, action)
+        }
         case SETTING_MANGA: {
             return applySettingManga(state, action)
-        }
-        case FEED_MANGA: {
-            return applyFeedImage(state, action)
         }
         default: return state
     }
