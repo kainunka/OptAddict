@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-photo-view-ex')
     compile project(':react-native-firebase')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-vector-icons')

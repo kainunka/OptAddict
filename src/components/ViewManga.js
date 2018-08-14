@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import { StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, Text, View, Platform, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { actionHeaderTitle, _doCallFeedMangta } from '../actions/optAddict'
-import Gallery from 'react-native-image-gallery';
 import { DATA_MANGA_FEED } from '../actions/type'
+import Swiper from 'react-native-swiper';
+import PhotoView from 'react-native-photo-view-ex';
+import _ from 'lodash'
 
 class ViewManga extends Component {
   _didFocusSubscription;
@@ -23,24 +25,24 @@ class ViewManga extends Component {
 
   render() {
     const { dataFeedManga } = this.props
-    let dataUrl = []
-    Object.keys(dataFeedManga).length ? 
-        dataFeedManga.gallery.map((value, index) => {
-            dataUrl.push({
-                source: {
-                    uri: value.url
-                }
-            })
-        })
-    : null
     return (
-        Object.keys(dataUrl).length ?
-            <ScrollView style={{ flex: 1 } }>
-                <Gallery
-                    style={{ flex: 1, backgroundColor: 'black' }}
-                    images={ dataUrl }
-                />
-            </ScrollView>
+        Object.keys(dataFeedManga).length ?
+        <Swiper 
+            style={styles.wrapper} showsButtons={false} showsPagination={false}
+        >
+            {_.map(_.values(dataFeedManga.gallery), (value, index) => 
+            <PhotoView
+                key={ index }
+                source={{uri: value.url }}
+                minimumZoomScale={0.5}
+                maximumZoomScale={3}
+                resizeMode='contain'
+                onLoad={() => console.log("Image loaded!")}
+                style={{backgroundColor: '#000', width: '100%', height: '100%'}} 
+                onError={ (error) => console.log('error', error) }
+            />
+            )}
+        </Swiper>
         : null
     );
   }
@@ -63,7 +65,14 @@ const mapDispatchToProps = (dispatch) => ({
   })
 
 const styles = StyleSheet.create({
-
+    wrapper: {
+    },
+    slide1: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#000000',
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewManga)
